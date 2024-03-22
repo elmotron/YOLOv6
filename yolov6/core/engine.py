@@ -337,7 +337,10 @@ class Trainer:
         LOGGER.info(('\n' + '%10s' * (self.loss_num + 2)) % (*self.loss_info,))
         self.pbar = enumerate(self.train_loader)
         if self.main_process:
-            self.pbar = tqdm(self.pbar, total=self.max_stepnum, ncols=NCOLS, bar_format='{l_bar}{bar:10}{r_bar}{bar:-10b}')
+            if self.args.progress_output:
+                self.pbar = tqdm(self.pbar, file=self.progress_output, total=self.max_stepnum, ncols=NCOLS, bar_format='{l_bar}{bar:10}{r_bar}{bar:-10b}')
+            else:
+                self.pbar = tqdm(self.pbar, total=self.max_stepnum, ncols=NCOLS, bar_format='{l_bar}{bar:10}{r_bar}{bar:-10b}')
 
     # Print loss after each steps
     def print_details(self):
