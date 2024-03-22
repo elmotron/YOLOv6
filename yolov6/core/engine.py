@@ -38,6 +38,7 @@ from yolov6.utils.general import download_ckpt
 class Trainer:
     def __init__(self, args, cfg, device):
         self.args = args
+        self.progress_output = args.progress_output
         self.cfg = cfg
         self.device = device
         self.max_epoch = args.epochs
